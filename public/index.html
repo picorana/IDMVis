@@ -304,16 +304,16 @@ function startIntro(){
       ]
     });
 
-    intro.onchange(function(targetElement, intro) {
+    intro.onbeforechange(function(targetElement, intro) {
       index += 1
-      if (index == 8){
+      if (index == 5){
         vis.detailedVis.setDate(moment("2017-08-24"))
         vis.detailedVis.render()
-      } else if (index == 26){
+      } else if (index == 14){
         firstAlign("Breakfast")
         secondAlign("Lunch")
         selectAlignmentAndRender(4)
-      } else if (index == 28){
+      } else if (index == 15){
         selectAlignmentAndRender(2)
       }
     })
