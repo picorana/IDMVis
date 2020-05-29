@@ -1,6 +1,3 @@
-(function () {
-'use strict';
-
 function dateToStr(date) {
   return date.format('YYYY-MM-DD');
 }
@@ -1875,5 +1872,3 @@ $(document).ready(() => {
     // changeVisDate(getStartDateFromDom());
   });
 });
-
-}());

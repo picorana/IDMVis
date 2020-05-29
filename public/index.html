@@ -13,6 +13,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment-with-locales.min.js"></script>
   <script src="https://unpkg.com/peerjs@1.0.4/dist/peerjs.min.js"></script>
   <script src="https://michaschwab.github.io/VisConnect/visconnect-bundle.js"></script>
+
+  <script src="./lib/intro.js"></script>
+  <link rel="stylesheet" href="./lib/introjs.css">
 </head>
 
 <body collaboration>
@@ -23,7 +26,7 @@
     </div>
     <div class="row" style="background: #464646;">
       <div class="btn-toolbar" roll="toolbar" style="padding: 1% 0% 1% 2%;">
-        <div class="btn-group mr-2">
+        <div class="btn-group mr-2" id="back-for-btn">
           <button id="prev-day" type="button" class="btn btn-secondary">
             &lt&lt
           </button>
@@ -31,34 +34,36 @@
             &gt&gt
           </button>
         </div>
-        <div class="input-group mr-3">
+        <div class="input-group mr-3" id="date-interval">
           <span class="input-group-addon">From</span>
           <input id="start-date" class="form-control" type="date" min="2017-01-24" max="2017-09-24">
           <span class="input-group-addon">To</span>
           <input id="end-date" class="form-control" type="date" disabled>
         </div>
 
-        <div id="1st-align-dropdown" class="dropdown mr-2">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="1st-align-btn" data-toggle="dropdown">
-            1st Align Event
-          </button>
-          <div class="dropdown-menu">
-            <a id="1st-align-none" class="dropdown-item" href="#">None</a>
-            <a id="1st-align-breakfast" class="dropdown-item" href="#">Breakfast</a>
-            <a id="1st-align-lunch" class="dropdown-item" href="#">Lunch</a>
-            <a id="1st-align-dinner" class="dropdown-item" href="#">Dinner</a>
+        <div id="align-dropdown" style="display: inherit">
+          <div id="1st-align-dropdown" class="dropdown mr-2">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="1st-align-btn" data-toggle="dropdown">
+              1st Align Event
+            </button>
+            <div class="dropdown-menu">
+              <a id="1st-align-none" class="dropdown-item" href="#">None</a>
+              <a id="1st-align-breakfast" class="dropdown-item" href="#">Breakfast</a>
+              <a id="1st-align-lunch" class="dropdown-item" href="#">Lunch</a>
+              <a id="1st-align-dinner" class="dropdown-item" href="#">Dinner</a>
+            </div>
           </div>
-        </div>
 
-        <div id="2nd-align-dropdown" class="dropdown mr-2">
-          <button class="btn btn-secondary dropdown-toggle disabled" type="button" id="2nd-align-btn" data-toggle="dropdown">
-            2nd Align Event
-          </button>
-          <div class="dropdown-menu">
-            <a id="2nd-align-none" class="dropdown-item" href="#">None</a>
-            <a id="2nd-align-breakfast" class="dropdown-item" href="#">Breakfast</a>
-            <a id="2nd-align-lunch" class="dropdown-item" href="#">Lunch</a>
-            <a id="2nd-align-dinner" class="dropdown-item" href="#">Dinner</a>
+          <div id="2nd-align-dropdown" class="dropdown mr-2">
+            <button class="btn btn-secondary dropdown-toggle disabled" type="button" id="2nd-align-btn" data-toggle="dropdown">
+              2nd Align Event
+            </button>
+            <div class="dropdown-menu">
+              <a id="2nd-align-none" class="dropdown-item" href="#">None</a>
+              <a id="2nd-align-breakfast" class="dropdown-item" href="#">Breakfast</a>
+              <a id="2nd-align-lunch" class="dropdown-item" href="#">Lunch</a>
+              <a id="2nd-align-dinner" class="dropdown-item" href="#">Dinner</a>
+            </div>
           </div>
         </div>
 
@@ -79,10 +84,11 @@
 
       </div>
 
-      <nav class="nav" style="padding: 1% 0% 1% 6%;">
+      <nav class="nav" style="padding: 1% 0% 1% 6%;" id="nav-pages">
         <a class="nav-link active" href="index.html" style="color:white;">Visualization</a>
         <a class="nav-link" href="dayByMeal.html" style="color:white;">Day By Meal</a>
         <a class="nav-link" href="about.html" style="color:white;">About</a>
+        <button class="nav-link" onclick="startIntro()" style="color:white; background-color: #333; border-radius: 10px">Start tutorial</a>
       </nav>
     </div>
     <div class="row">
@@ -203,5 +209,96 @@
   <script src='t1d.js'></script>
 
 </body>
+
+<script>
+function startIntro(){
+  index = 0
+
+  div_1 = document.getElementsByClassName('day-vis')[1]
+
+  var intro = introJs();
+    intro.setOptions({
+      steps: [{ // 0
+          intro: "Hello and welcome to the IDMVis tutorial"
+        },
+        { // 1
+          intro: "People with diabetes need to monitor their blood glucose (blood sugar) on a regular basis. <br><br>Continuous Glucose Monitoring (CGM) is a method to track glucose levels throughout the day and night. CGM systems take glucose measurements at regular intervals, 24 hours a day."
+        },
+        { // 2
+          element: "#vis-canvas",
+          intro: "These graphs show CGM data through 14 days.",
+        },
+        { // 3
+          element: "#vis-canvas",
+          intro: 'By clicking on one of them, you can zoom in and have a better overview of the details.',
+        },
+        { // 4
+          element: '#detailed-canvas',
+          intro: "This graph shows one day of blood glucose data from a Continuous Glucose Monitor (CGM).",
+        },
+        { // 5
+          element: '#detailed-canvas',
+          intro: 'The X axis represents a 24-hour timeline. <br> The Y axis represents the blood glucose level. The higher the position of the dots, the higher the blood glucose levels are.'
+        },
+        { // 6
+          element: '#detailed-canvas',
+          intro: 'Blood glucose is clustered in three levels: <span style="color: #8a84c8"><b>high</b></span>, <span style="color:#82d6c3"><b>normal</b></span>, and <span style="color: rgb(217, 95, 2)"><b>low</b></span>.'
+        },
+        { // 7
+          element: '#vis-canvas',
+          intro: 'Through the day, the patient had several meals, represented by a <span style="color: #1583ea">▲</span> blue triangle.'
+        },
+        { // 8
+          element: '#date-interval',
+          intro: 'Here you can pick the time interval to be shown in the graphs.'
+        },
+        { // 9
+          element: '#back-for-btn',
+          intro: 'The arrows let you move the time interval back or forward by 1 day.'
+        },
+        { // 10
+          intro: 'One of the most important features of IDMVis is being able to align events.'
+        },
+        { // 11
+          element: '#alignment-selections',
+          intro: 'These buttons let you select the alignment type.'
+        },
+        { // 12
+          element: '#align-dropdowns',
+          intro: 'You can choose the alignment events using these dropdown menus.'
+        },
+        { // 13
+          element: '#vis-canvas',
+          intro: 'Here is a way to align by both breakfast and lunch. All aligned events are shown as dark green triangles. This type of alignment is called stretch dual-event alignment. In this type of alignment, the intervals have completely different time scales.'
+        },
+        { // 14
+          element: '#vis-canvas',
+          intro: 'This is another way of aligning events. Here, the time scales are the same, and the gray bars fill the differences in timing.'
+        },
+        { // 15
+          element: '#stat-canvas',
+          intro: 'The violin plots here show additional information about the distribution of insulin, carbohydrates, and basal and bolus.'
+        },
+        { // 16
+          element: '#nav-pages',
+          intro: 'You can visit additional visualizations by clicking on these links.'
+        },
+        { // 17
+          intro: 'This is the end of the tutorial. Thank you!'
+        }
+      ]
+    });
+
+    intro.onchange(function(targetElement, intro) {
+      index += 1
+      if (index == 5){
+        vis.detailedVis.setDate(moment("2017-08-24"))
+        vis.detailedVis.render()
+      }
+    })
+
+    intro.start();
+  }
+</script>
 
 </html>
