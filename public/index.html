@@ -16,6 +16,19 @@
 
   <script src="./lib/intro.js"></script>
   <link rel="stylesheet" href="./lib/introjs.css">
+  <style>
+    .introjs-prevbutton {
+      display: none;
+    }
+
+    .introjs-disabled {
+      display: none;
+    }
+
+    .introjs-skipbutton {
+      display: none;
+    }
+  </style>
 </head>
 
 <body collaboration>
@@ -216,8 +229,10 @@ function startIntro(){
 
   div_1 = document.getElementsByClassName('day-vis')[1]
 
+
   var intro = introJs();
     intro.setOptions({
+      keyboardNavigation: false,
       steps: [{ // 0
           intro: "Hello and welcome to the IDMVis tutorial"
         },
@@ -264,12 +279,12 @@ function startIntro(){
           intro: 'These buttons let you select the alignment type.'
         },
         { // 12
-          element: '#align-dropdowns',
+          element: '#align-dropdown',
           intro: 'You can choose the alignment events using these dropdown menus.'
         },
         { // 13
           element: '#vis-canvas',
-          intro: 'Here is a way to align by both breakfast and lunch. All aligned events are shown as dark green triangles. This type of alignment is called stretch dual-event alignment. In this type of alignment, the intervals have completely different time scales.'
+          intro: 'Here is a way to align by both breakfast and lunch. All aligned events are shown as <span style="color: rgb(28, 92, 20)">▲</span>dark green triangles. This type of alignment is called stretch dual-event alignment. In this type of alignment, the intervals have completely different time scales.'
         },
         { // 14
           element: '#vis-canvas',
@@ -291,9 +306,15 @@ function startIntro(){
 
     intro.onchange(function(targetElement, intro) {
       index += 1
-      if (index == 5){
+      if (index == 8){
         vis.detailedVis.setDate(moment("2017-08-24"))
         vis.detailedVis.render()
+      } else if (index == 26){
+        firstAlign("Breakfast")
+        secondAlign("Lunch")
+        selectAlignmentAndRender(4)
+      } else if (index == 28){
+        selectAlignmentAndRender(2)
       }
     })
 
