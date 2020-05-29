@@ -233,6 +233,7 @@ function startIntro(){
   var intro = introJs();
     intro.setOptions({
       keyboardNavigation: false,
+      disableInteraction: true,
       steps: [{ // 0
           intro: "Hello and welcome to the IDMVis tutorial"
         },
@@ -275,12 +276,12 @@ function startIntro(){
           intro: 'One of the most important features of IDMVis is being able to align events.'
         },
         { // 11
-          element: '#alignment-selections',
-          intro: 'These buttons let you select the alignment type.'
-        },
-        { // 12
           element: '#align-dropdown',
           intro: 'You can choose the alignment events using these dropdown menus.'
+        },
+        { // 12
+          element: '#alignment-selections',
+          intro: 'These buttons let you select the alignment type.'
         },
         { // 13
           element: '#vis-canvas',
@@ -295,10 +296,6 @@ function startIntro(){
           intro: 'The violin plots here show additional information about the distribution of insulin, carbohydrates, and basal and bolus.'
         },
         { // 16
-          element: '#nav-pages',
-          intro: 'You can visit additional visualizations by clicking on these links.'
-        },
-        { // 17
           intro: 'This is the end of the tutorial. Thank you!'
         }
       ]
