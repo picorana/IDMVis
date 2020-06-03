@@ -11,15 +11,15 @@ export default class DetailedVisualization {
 
     this.container = $('#detailed-canvas-container');
     this.canvas = d3.select('#detailed-canvas');
-    this.width = 1000;
+    this.width = 900;
     this.navBarHeight = 72;
     this.paddingTop = 10;
     this.paddingBottom = 20;
     this.paddingLeft = 30;
     this.paddingRight = 10;
-    this.plotHeight = 250;
+    this.plotHeight = 200;
     this.plotWidth = 890;
-    this.MaxGlucose = 400;
+    this.MaxGlucose = 300;
     this.MinGlucose = 0;
 
     this.glucoseData = glucoseData;
@@ -38,8 +38,8 @@ export default class DetailedVisualization {
   }
 
   updateCanvasSize() {
-    this.width = this.container.width();
-    this.height = ($(window).height() - this.navBarHeight) * 0.25;
+    this.width = 900;
+    this.height = 50;
     this.plotWidth = this.width - this.paddingLeft - this.paddingRight;
     this.plotHeight = this.height - this.paddingTop - this.paddingBottom;
     this.container.height(this.height);
@@ -87,7 +87,7 @@ export default class DetailedVisualization {
       .attr('x', 60)
       .attr('dy', '1em')
       .style('text-anchor', 'middle')
-      .attr('font-size', '1em')
+      .attr('font-size', '2em')
       .text('mg/dL');
   }
 
@@ -183,7 +183,7 @@ export default class DetailedVisualization {
       .attr('class', 'event-symbol')
       .attr('text-anchor', 'middle')
       .attr('font-family', 'sans-serif')
-      .attr('font-size', 10)
+      .attr('font-size', '2em')
       .style('font-weight', 'bold')
       .attr('transform', d => `translate(${this.scaleX(secondInDay(d.time))}, ${this.paddingTop + this.plotHeight})`)
       .on('mouseenter', (d) => {
@@ -237,6 +237,7 @@ export default class DetailedVisualization {
       .text(d => d.Meal)
       .attr('y', -3)
       .attr('dy', '-0.71em')
+      .attr('font-size', '2em')
       .attr('fill', 'grey');
 
     eventSymbolsEnter.merge(eventSymbols)

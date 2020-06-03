@@ -231,7 +231,7 @@ export default class SummaryVisualization {
 
   resize() {
     this.width = this.container.width();
-    this.height = $(window).height() - this.navBarHeight;
+    this.height = 768 - this.navBarHeight;
     this.container.height(this.height);
     this.canvas
       .attr('width', this.width)

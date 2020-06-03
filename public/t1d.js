@@ -75,11 +75,12 @@ class GlucoseVisualization {
 
   setDetailedVis(detailedVis) {
     this.detailedVis = detailedVis;
+    
   }
 
   resize() {
     this.width = this.container.width();
-    this.height = ($(window).height() - this.navBarHeight) * 0.75; //0.75
+    this.height = (768 - this.navBarHeight) * 0.75; //0.75
     this.paddingForDate = 100;
 
     this.container.height(this.height);
@@ -136,6 +137,12 @@ class GlucoseVisualization {
         this.detailedVis.setDate(moment(d.date));
         this.detailedVis.render();
         d3.select('.detailed-date-legend').html(d.date);
+        d3.selectAll('.event-symbol').selectAll('text')
+          .attr('font-size', '1.4em')
+        d3.select('#detailed-canvas-container')
+          .selectAll('.tick')
+          .selectAll('text')
+          .attr('font-size', '1.3em')
       });
     dayGroupsEnter.append('g')
       .attr('class', 'time-ticks');
@@ -785,13 +792,13 @@ class DetailedVisualization {
 
     this.container = $('#detailed-canvas-container');
     this.canvas = d3.select('#detailed-canvas');
-    this.width = 1000;
+    this.width = 900;
     this.navBarHeight = 72;
     this.paddingTop = 10;
     this.paddingBottom = 20;
-    this.paddingLeft = 30;
+    this.paddingLeft = 50;
     this.paddingRight = 10;
-    this.plotHeight = 250;
+    this.plotHeight = 200;
     this.plotWidth = 890;
     this.MaxGlucose = 400;
     this.MinGlucose = 0;
@@ -812,8 +819,8 @@ class DetailedVisualization {
   }
 
   updateCanvasSize() {
-    this.width = this.container.width();
-    this.height = ($(window).height() - this.navBarHeight) * 0.25;
+    this.width = 1200;
+    this.height = 300;
     this.plotWidth = this.width - this.paddingLeft - this.paddingRight;
     this.plotHeight = this.height - this.paddingTop - this.paddingBottom;
     this.container.height(this.height);
@@ -861,7 +868,7 @@ class DetailedVisualization {
       .attr('x', 60)
       .attr('dy', '1em')
       .style('text-anchor', 'middle')
-      .attr('font-size', '1em')
+      .attr('font-size', '1.2em')
       .text('mg/dL');
   }
 
@@ -957,7 +964,7 @@ class DetailedVisualization {
       .attr('class', 'event-symbol')
       .attr('text-anchor', 'middle')
       .attr('font-family', 'sans-serif')
-      .attr('font-size', 10)
+      .attr('font-size', '1em')
       .style('font-weight', 'bold')
       .attr('transform', d => `translate(${this.scaleX(secondInDay(d.time))}, ${this.paddingTop + this.plotHeight})`)
       .on('mouseenter', (d) => {
@@ -1780,7 +1787,13 @@ function loadDataAndRender() {
         bolusOrgData,
       );
       vis.setDetailedVis(detailedVis);
+      vis.detailedVis.plotHeight = 10
       detailedVis.resize();
+
+      d3.select('#detailed-canvas-container')
+          .selectAll('.tick')
+          .selectAll('text')
+          .attr('font-size', '1.3em')
 
       changeVisDate(start);
     });

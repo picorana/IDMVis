@@ -28,11 +28,24 @@
     .introjs-skipbutton {
       display: none;
     }
+
+    .btn-toolbar {
+      font-size: 0.8em;
+    }
+
+    .input-group-addon, .form-control, .btn {
+      font-size: inherit;
+    }
+
+    #nav-pages {
+      font-size: 0.8em;
+    }
+
   </style>
 </head>
 
 <body collaboration>
-  <div style="width:100%; overflow:hidden">
+  <div id="full_container" style="width:1366px; height:768px; overflow:hidden; zoom: 0.5">
     <div id="tooltip" style="position:absolute; z-index: 10000;
     top: -200px; left: -200px;
     padding: 5px; border-left: 4px solid #a2a2a2; background-color: #f1f1f1;">
@@ -110,7 +123,7 @@
           <svg id="vis-canvas"></svg>
         </div>
 
-        <div id="detailed-canvas-container" style="width:100%">
+        <div id="detailed-canvas-container" style="width:900px; height: 200px;">
           <div class="detailed-event-tooltip-container">
             <div class="detailed-event-tooltip" style="position:absolute;
             top: 500; left: 100; margin-left: 30px;font-size: 0.8em; line-height: 0.8em;
@@ -133,13 +146,13 @@
             </div>
           </div>
           <div class="detailed-date-legend" style="position: absolute; padding: 1% 5%; font-size: 2.5em; color: #efefef; z-index: -1000;"></div>
-          <svg id="detailed-canvas"></svg>
+          <svg id="detailed-canvas" style="width:900px; height: 200px;"></svg>
 
         </div>
       </div>
 
       <div class="col-4" style="background: #fbfbfb; border-left: 6px solid #f5f5f5;">
-        <div id="summary-container" style="width:100%">
+        <div id="summary-container" style="width:100%;">
           <svg id="stat-canvas" style="font-size: 0.8em;">
             <g id='basal-violin'>
               <text>No Data</text>
@@ -224,6 +237,29 @@
 </body>
 
 <script>
+
+  d3.select("#full_container")
+  .selectAll("#vis-canvas")
+  .attr("preserveAspectRatio", "xMinYMin meet")
+  .attr("viewBox", "0 0 550 550")
+  .classed("svg-content", true);
+
+  d3.select("#full_container")
+  .selectAll("#detailed-canvas")
+  .attr("preserveAspectRatio", "xMinYMin meet")
+  .attr("viewBox", "0 0 900 300")
+  .classed("svg-content", true)
+  .attr("transform", "translate(0, -20)")
+
+  d3.select("#full_container")
+  .selectAll("#stat-canvas")
+  .attr("preserveAspectRatio", "xMinYMin meet")
+  .attr("viewBox", "0 0 550 550")
+  .classed("svg-content", true)
+
+  
+
+
 function startIntro(){
   index = 0
 
